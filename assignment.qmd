@@ -1,6 +1,6 @@
 ---
 title: "Joining Assignment"
-author: "Put Name Here"
+author: "Avril Silva"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -42,7 +42,9 @@ primary_rep <- read_csv("data/md_primary_precinct_rep.csv") %>%
 Now Combine (stack) the two dataframes into one combined dataframe, so all the records from both tables are in one place to use.
 
 ```{r}
+all_primary <- bind_rows(primary_dem, primary_rep)
 
+# For this, I tried to use the stack() command at first, but that did not quote work in this scenario. Instead,I used the bind_rows() command to combine the two. I also went and renamed this binding to see the data in its own data set.
 
 
 
@@ -60,9 +62,10 @@ To use clean_names() you apply it to your dataframe like:
 
 ```{r}
 
+all_primary <- all_primary %>% 
+  clean_names()
 
-
-
+# Using the commands, I simply combined the commands in order to use the clean_names() command and clean up the columns. 
 
 ```
 
@@ -81,7 +84,7 @@ Next use left_join() to join the two tables based on the unique combination of p
 ```{r}
 
 
-
+my_data <- left_join(precinct_voting_locations, all_primary, by=c("precinct_code" = "election_district_precinct", "county_code" = "county"))
 
 
 
