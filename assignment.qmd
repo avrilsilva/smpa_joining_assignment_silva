@@ -98,7 +98,10 @@ Write code to produce a `votes` column which is the result of adding together `e
 
 ```{r}
 
+new_data <- my_data %>% 
+  mutate(my_data, total_votes = early_votes + election_night_votes + mail_in_ballot_1_votes + mail_in_ballot_2_votes + provisional_votes)
 
+# Although a little clunky, it helped for me to see all of the variables added together in order to make the new column using the mutate() function.  
 
 ```
 
@@ -106,13 +109,18 @@ Next, separately write code to show each county and precinct and calculate the t
 
 ```{r}
 
+new_data %>% 
+  group_by(precinct_code) %>%
+  summarise(total_votes = sum(total_votes)) %>% 
+  arrange(desc(total_votes))
 
 
+# This one took a bit of fanagaling, but in the end I had to go back and make a new data set that included the total_votes column and then made sure to group it by the precinct since there are multiple precincts in a county and we only want to see one. 
 
 
 ```
 
-What is the name and voting location of the precinct that saw the most votes in the governor's race? *Put answer here*
+What is the name and voting location of the precinct that saw the most votes in the governor's race? *Precinct: 1001 Name: LINTHICUM ES Location:101 SCHOOL LANE, LINTHICUM, MD, 21090*
 
 ### Q2.
 
@@ -120,7 +128,10 @@ Let's look at the average number of votes in each party's primary race for gover
 
 ```{r}
 
-
+new_data %>% 
+  group_by(precinct_code) %>%
+  summarise(total_votes = sum(total_votes)) %>% 
+  arrange(desc(total_votes))
 
 
 
