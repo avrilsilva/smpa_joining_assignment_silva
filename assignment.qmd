@@ -129,18 +129,25 @@ Let's look at the average number of votes in each party's primary race for gover
 ```{r}
 
 new_data %>% 
+  filter(office_name == "Governor / Lt. Governor") %>% 
   group_by(precinct_code) %>%
   summarise(total_votes = sum(total_votes)) %>% 
-  arrange(desc(total_votes))
+  arrange(total_votes)
 
+# In order to solve this, I first needed to filter out the voted for simply the governor race and then apply the same voting code that I had done prior. In doing so, I found that the 19005 and 20017 precincts had no votes for governor. 
 
+new_data %>%
+  group_by(county_name) %>%
+  summarise(precincts = n(precinct_code))
 
+  
+  
 
 ```
 
-How many precincts are there, and which county has the most? *Put answer here*
+How many precincts are there, and which county has the most? *There are 759 different precincts and ____ has the most precincts*
 
-What else would you need to know about these precincts to know whether this might be worth a story? *Put answer here*
+What else would you need to know about these precincts to know whether this might be worth a story? *It would be good to know about the different demographics found in these counties that has them splitting up into so many different districts and if there is some gerrymandering or redistricting involved to make things more favorable for one group over the other.*
 
 ### Q3.
 
@@ -150,8 +157,13 @@ First write the question and then try to answer it by writing code. If you're no
 
 ```{r}
 
+# My Question: Out of the all of the primaries, what percentage of the votes was for the democratic primaries? 
 
+new_data %>%
+  group_by(party) %>% 
+  summarise(votes_for_each_party = sum(total_votes))
 
+# In addition to the code I have attached, I would need to add a different column to automatically figure out the percentage of the votes from each primary rather than having to add it myself. Nevertheless, you can still find using this table that the democratic primary votes made up 74 % of the total votes of all of the primaries. 
 
 
 ```
