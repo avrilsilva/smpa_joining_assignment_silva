@@ -115,7 +115,7 @@ new_data %>%
   arrange(desc(total_votes))
 
 
-# This one took a bit of fanagaling, but in the end I had to go back and make a new data set that included the total_votes column and then made sure to group it by the precinct since there are multiple precincts in a county and we only want to see one. 
+# This one took a bit of finagling, but in the end I had to go back and make a new data set that included the total_votes column and then made sure to group it by the precinct since there are multiple precincts in a county and we only want to see one. 
 
 
 ```
@@ -138,14 +138,15 @@ new_data %>%
 
 new_data %>%
   group_by(county_name) %>%
-  summarise(precincts = n(precinct_code))
+  summarise(precincts = n_distinct(precinct_code)) %>% 
+  arrange(desc(precincts))
 
-  
+# This one took me the longest. It took me too long to figure out because I did a lot of different combinations before landing on the exact one I needed. 
   
 
 ```
 
-How many precincts are there, and which county has the most? *There are 759 different precincts and ____ has the most precincts*
+How many precincts are there, and which county has the most? *There are 759 different precincts and Prince George's County has the most precincts*
 
 What else would you need to know about these precincts to know whether this might be worth a story? *It would be good to know about the different demographics found in these counties that has them splitting up into so many different districts and if there is some gerrymandering or redistricting involved to make things more favorable for one group over the other.*
 
@@ -163,7 +164,7 @@ new_data %>%
   group_by(party) %>% 
   summarise(votes_for_each_party = sum(total_votes))
 
-# In addition to the code I have attached, I would need to add a different column to automatically figure out the percentage of the votes from each primary rather than having to add it myself. Nevertheless, you can still find using this table that the democratic primary votes made up 74 % of the total votes of all of the primaries. 
+# In addition to the code I have attached, I would need to add a different column to automatically figure out the percentage of the votes from each primary rather than having to add it myself. Nevertheless, you can still find using this table that the democratic primary votes made up 74% of the total votes of all of the primaries. 
 
 
 ```
